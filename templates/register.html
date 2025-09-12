@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Network Registration{% endblock %}
+
+{% block content %}
+<h1>Welcome to Our Network</h1>
+<p>To access the internet, please provide your name and email address. You'll receive a verification email to complete the registration process.</p>
+
+<form method="POST" action="{{ url_for('register') }}">
+    <div class="form-group">
+        <label for="name">Full Name *</label>
+        <input type="text" id="name" name="name" required placeholder="Enter your full name">
+    </div>
+    
+    <div class="form-group">
+        <label for="email">Email Address *</label>
+        <input type="email" id="email" name="email" required placeholder="Enter your email address">
+    </div>
+    
+    <button type="submit" class="btn">Register for Network Access</button>
+</form>
+
+<p style="margin-top: 20px; font-size: 14px; color: #666;">
+    By registering, you agree to our network usage policies. 
+    You will have limited access (email only) until email verification is complete.
+</p>
+{% endblock %}
