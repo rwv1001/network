@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Email Verification Pending{% endblock %}
+
+{% block content %}
+<div class="status-icon pending">⏳</div>
+<h1>Email Verification Pending</h1>
+<p>Hello <strong>{{ user.name }}</strong>,</p>
+<p>We've sent a verification email to <strong>{{ user.email }}</strong>.</p>
+<p>Please check your email and click the verification link to gain full internet access.</p>
+
+<div style="margin: 30px 0; padding: 20px; background-color: #fff3cd; border: 1px solid #ffeaa7; border-radius: 8px;">
+    <strong>Current Access Level:</strong> Limited (Email access only)
+</div>
+
+<p style="font-size: 14px; color: #666;">
+    Didn't receive the email? Check your spam folder or contact the network administrator.
+</p>
+{% endblock %}
