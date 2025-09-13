@@ -12,6 +12,7 @@ A modern identity management system with Microsoft Graph email integration and D
 - **Reverse Proxy**: Nginx for load balancing and security
 - **Logging**: Structured logging with Winston
 - **Validation**: Input validation with Joi
+- **Network Access Control**: MAC address-based device blocking and VLAN assignment for unregistered devices
 
 ## Architecture
 
@@ -20,6 +21,7 @@ A modern identity management system with Microsoft Graph email integration and D
 - **Reverse Proxy**: Nginx for routing and security
 - **Email Service**: Microsoft Graph API integration
 - **Containerization**: Docker containers orchestrated with Docker Compose
+- **Network Access Control**: MAC address-based device registration and VLAN assignment
 
 ## Quick Start
 
@@ -77,6 +79,14 @@ A modern identity management system with Microsoft Graph email integration and D
 - `PUT /api/users/:id/role` - Update user role (admin only)
 - `PUT /api/users/:id/activate` - Activate user (admin only)
 - `PUT /api/users/:id/deactivate` - Deactivate user (admin only)
+
+### Device Management (Network Access Control)
+- `GET /api/devices/status/:macAddress` - Check device registration status (for network equipment)
+- `POST /api/devices/register` - Register a new device
+- `GET /api/devices/my-devices` - Get current user's registered devices
+- `DELETE /api/devices/:deviceId` - Unregister a device
+- `GET /api/devices/admin/all` - List all devices (admin only)
+- `PUT /api/devices/admin/:macAddress/block` - Block/unblock device (admin only)
 
 ## Microsoft Graph Setup
 
@@ -169,6 +179,16 @@ All emails are sent via Microsoft Graph API with no SMTP fallback.
 - Health check endpoint: `/health`
 - Application logs are available via Docker logs
 - MongoDB metrics available through MongoDB tools
+
+## Network Access Control
+
+For detailed information about MAC address blocking, firewall rules, and VLAN-based access control for unregistered devices, see [NETWORK_ACCESS_CONTROL.md](./NETWORK_ACCESS_CONTROL.md).
+
+### Key Features:
+- **MAC Address Registration**: Devices must be registered to access production networks
+- **Automatic VLAN Assignment**: Unregistered devices are placed in a restricted guest VLAN
+- **Firewall Integration**: Dynamic firewall rules based on device registration status
+- **Registration Portal**: Web interface for users to register their devices
 
 ## License
 
