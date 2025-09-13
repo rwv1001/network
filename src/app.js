@@ -7,6 +7,7 @@ require('dotenv').config();
 
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/users');
+const deviceRoutes = require('./routes/devices');
 const { errorHandler } = require('./middleware/errorHandler');
 const { logger } = require('./utils/logger');
 
@@ -35,6 +36,7 @@ app.use(express.urlencoded({ extended: true }));
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/devices', deviceRoutes);
 
 // Health check endpoint
 app.get('/health', (req, res) => {
@@ -50,7 +52,8 @@ app.get('/', (req, res) => {
   res.json({
     name: 'Network Identity Manager',
     version: '1.0.0',
-    description: 'Identity management system with Microsoft Graph integration'
+    description: 'Identity management system with Microsoft Graph integration and network access control',
+    features: ['User Management', 'Microsoft Graph Email', 'MAC Address Device Registration', 'VLAN-based Access Control']
   });
 });
 
@@ -62,13 +65,13 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/identity_
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
-.then(() => {
-  logger.info('Connected to MongoDB');
-})
-.catch((error) => {
-  logger.error('MongoDB connection error:', error);
-  process.exit(1);
-});
+  .then(() => {
+    logger.info('Connected to MongoDB');
+  })
+  .catch((error) => {
+    logger.error('MongoDB connection error:', error);
+    process.exit(1);
+  });
 
 // Start server
 app.listen(PORT, () => {
